@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * Implements hook_page_alter()
+ */
+function sp_devaid_page_alter(&$page) {
+  $lndo = strpos($_SERVER['HTTP_HOST'],'.lndo.site');
+  if($lndo > 0) {
+    $page['content']['devaid'] = [
+       '#markup' => '<p style="position: fixed; bottom: 0; left: 0; background: lightgreen; color: black; display: block; padding: 8px 12px; font-weight: bold; font-size: 12px; font-family: monospace; z-index: 999; box-shadow: 0 0 8px rgba(0,0,0,.2);">Development: '.$_SERVER['HTTP_HOST'].'</p>',
+    ]; 
+  }
+}
+

@@ -1,0 +1,5 @@
+name = SP Development aid
+description = SP Development aides to prevent some basic mistakes
+core = 7.x
+version = 1.0
+package = sp

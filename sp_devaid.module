@@ -4,11 +4,27 @@
  * Implements hook_page_alter()
  */
 function sp_devaid_page_alter(&$page) {
-  $lndo = strpos($_SERVER['HTTP_HOST'],'.lndo.site');
-  if($lndo > 0) {
+  if(_sp_devaid_is_dev()) {
     $page['content']['devaid'] = [
        '#markup' => '<p style="position: fixed; bottom: 0; left: 0; background: lightgreen; color: black; display: block; padding: 8px 12px; font-weight: bold; font-size: 12px; font-family: monospace; z-index: 999; box-shadow: 0 0 8px rgba(0,0,0,.2);">Development: '.$_SERVER['HTTP_HOST'].'</p>',
     ]; 
   }
 }
-
+/**
+ * Implements hook_preprocess_html()
+ */
+function sp_devaid_preprocess_html(&$variables) {
+  if(_sp_devaid_is_dev()){
+    $variables['head_title'] = '[DEV] '. $variables['head_title'];
+  }
+}
+/**
+ * Custom function _is_dev()
+ * @return true when common sp development env.
+ */
+function _sp_devaid_is_dev() {
+  if(strpos($_SERVER['HTTP_HOST'],'.lndo.site') > 0) {
+    return TRUE;
+  }
+  return FALSE;
+}
